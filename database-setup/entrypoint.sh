@@ -1,0 +1,1 @@
+/app/initialize_database.sh $1 $2 $3 $4 & /opt/mssql/bin/sqlservr
