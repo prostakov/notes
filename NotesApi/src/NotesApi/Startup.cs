@@ -24,9 +24,9 @@ namespace NotesApi
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "NotesApi", Version = "v1"}); });
 
-            var connectionString = Environment.GetEnvironmentVariable("DatabaseConnection");
+            var connectionString = Configuration.GetConnectionString("Database");
             if (string.IsNullOrWhiteSpace(connectionString))
-                throw new Exception("DatabaseConnection environment variable is not set up");
+                throw new Exception("DatabaseConnection configuration is not set");
             
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(connectionString, sqlOptions => sqlOptions.EnableRetryOnFailure()));
