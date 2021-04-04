@@ -3,7 +3,7 @@
 ## Set up database
 
 ### Build database image:
-docker build -t mssql -f ./database-setup/Dockerfile.mssql ./database-setup/
+docker build -t mssql -f ./database-setup/Dockerfile ./database-setup/
 
 ### Create container with database params:
 docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=SomePassword123' \
