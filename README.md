@@ -2,6 +2,9 @@
 
 ## Set up database
 
+### Build notes-api image:
+docker build -t notes-api -f NotesApi/Dockerfile NotesApi/.
+
 ### Build database image:
 docker build -t mssql -f ./database-setup/Dockerfile ./database-setup/
 

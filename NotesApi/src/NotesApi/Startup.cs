@@ -30,6 +30,10 @@ namespace NotesApi
             
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(connectionString, sqlOptions => sqlOptions.EnableRetryOnFailure()));
+            
+            services
+                .AddHealthChecks()
+                .AddDbContextCheck<ApplicationDbContext>();
 
             RunMigrations(services);
         }
@@ -50,7 +54,11 @@ namespace NotesApi
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/healthcheck");
+                endpoints.MapControllers();
+            });
         }
         
         private void RunMigrations(IServiceCollection services)

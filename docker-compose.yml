@@ -11,6 +11,12 @@ services:
     restart: always
     depends_on:
       - db
+    healthcheck:
+      test: wget --no-verbose http://localhost:80/healthcheck || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 600
+      start_period: 10s
   db:
     image: mssql
     volumes:
@@ -25,10 +31,10 @@ services:
       - "9101:1433"
     restart: always
     healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "SAPassword123" -Q "SELECT 1" || exit 1
+      test: /opt/mssql-tools/bin/sqlcmd -b -S localhost -U sa -P "SAPassword123" -Q "SELECT * FROM [NotesDatabase].[INFORMATION_SCHEMA].[TABLES]" || exit 1
       interval: 10s
       timeout: 3s
-      retries: 10
+      retries: 600
       start_period: 10s
 
 volumes:
