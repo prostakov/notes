@@ -38,7 +38,7 @@ namespace NotesApi.Controllers
             }
             else
             {
-                model.Text = model.Text;
+                model.Text = updateModel.Text;
                 model.UpdatedAt = DateTime.UtcNow;
             }
             await _dbContext.SaveChangesAsync();
