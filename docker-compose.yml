@@ -6,7 +6,7 @@ services:
     environment:
       ConnectionStrings:Database: "Server=db;Database=$DATABASE_NAME;User=$DATABASE_USER;Password=$DATABASE_PASSWORD;MultipleActiveResultSets=true"
     ports:
-      - "9411:80"
+      - "9410:80"
     restart: always
     depends_on:
       - db
@@ -16,6 +16,8 @@ services:
       timeout: 3s
       retries: 600
       start_period: 10s
+    build:
+      context: NotesApi
   db:
     image: mssql
     volumes:
@@ -35,6 +37,8 @@ services:
       timeout: 3s
       retries: 600
       start_period: 10s
+    build:
+      context: database-setup
 
 volumes:
   mssqldata-notes:
