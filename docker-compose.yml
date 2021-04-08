@@ -4,8 +4,7 @@ services:
   api:
     image: notes-api
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
-      ConnectionStrings:Database: "Server=db;Database=NotesDatabase;User=NotesUser;Password=NotesPassword;MultipleActiveResultSets=true"
+      ConnectionStrings:Database: "Server=db;Database=$DATABASE_NAME;User=$DATABASE_USER;Password=$DATABASE_PASSWORD;MultipleActiveResultSets=true"
     ports:
       - "9411:80"
     restart: always
@@ -23,15 +22,15 @@ services:
       - mssqldata-notes:/var/opt/mssql
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "SAPassword123"
-      DATABASE: "NotesDatabase"
-      USER: "NotesUser"
-      PASSWORD: "NotesPassword"
+      MSSQL_SA_PASSWORD: $DATABASE_SA_PASSWORD
+      DATABASE: $DATABASE_NAME
+      USER: $DATABASE_USER
+      PASSWORD: $DATABASE_PASSWORD
     ports:
       - "9101:1433"
     restart: always
     healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -b -S localhost -U sa -P "SAPassword123" -Q "SELECT * FROM [NotesDatabase].[INFORMATION_SCHEMA].[TABLES]" || exit 1
+      test: /opt/mssql-tools/bin/sqlcmd -b -S localhost -U sa -P $DATABASE_SA_PASSWORD -Q "SELECT * FROM [$DATABASE_NAME].[INFORMATION_SCHEMA].[TABLES]" || exit 1
       interval: 10s
       timeout: 3s
       retries: 600
