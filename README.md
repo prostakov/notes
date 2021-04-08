@@ -1,7 +1,7 @@
 # Database container setup
 
-## Launch from release compose file (do not forget about .env file with variables)
-docker-compose -f docker-compose.release.yml up -d
+## Launch from release compose file (copy docker-compose.release.yml and release.env first):
+docker-compose -f docker-compose.release.yml --env-file release.env up -d
 
 ## Build and run everything
 docker-compose up -d --build
