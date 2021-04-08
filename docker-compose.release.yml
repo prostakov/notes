@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   api:
-    image: notes-api
+    image: prostakov/notes-api:latest
     environment:
       ConnectionStrings:Database: "Server=db;Database=$DATABASE_NAME;User=$DATABASE_USER;Password=$DATABASE_PASSWORD;MultipleActiveResultSets=true"
     ports:
@@ -16,10 +16,8 @@ services:
       timeout: 3s
       retries: 600
       start_period: 10s
-    build:
-      context: NotesApi
   db:
-    image: mssql
+    image: prostakov/mssql:latest
     volumes:
       - mssqldata:/var/opt/mssql
     environment:
@@ -37,8 +35,6 @@ services:
       timeout: 3s
       retries: 600
       start_period: 10s
-    build:
-      context: database-setup
 
 volumes:
   mssqldata:

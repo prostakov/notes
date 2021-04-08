@@ -1,5 +1,5 @@
 # Wait to be sure that SQL Server came up
-sleep 45s
+sleep 60s
 
 # Run the setup script to create the DB and the schema in the DB
 echo 'Start database initialization'
