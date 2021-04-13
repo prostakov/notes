@@ -25,15 +25,19 @@ namespace NotesApi.Controllers
         }
 
         [HttpPut]
-        public async Task<NoteModel> CreateOrUpdate(NoteModel updateModel)
+        public async Task<NoteModel> CreateOrUpdate(UpdateNoteModel updateModel)
         {
             var model = await _dbContext.Notes.SingleOrDefaultAsync(x => x.Id == updateModel.Id);
             
             if (model == null)
             {
-                model = updateModel;
-                model.CreatedAt = DateTime.UtcNow;
-                model.UpdatedAt = DateTime.UtcNow;
+                model = new NoteModel
+                {
+                    Id = updateModel.Id,
+                    Text = updateModel.Text,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
                 await _dbContext.Notes.AddAsync(model);   
             }
             else
