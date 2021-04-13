@@ -88,18 +88,13 @@ export class NotesComponent  implements OnInit {
 
   public deleteAction(note: Note) {
       if (confirm("Are you sure you want to remove selected note?")) {
-          // this._dataService.delete(note)
-          //     .subscribe(
-          //         (deleteResult: Boolean) => {
-          //             if (deleteResult) {
-          //                 this.notes.splice(this.notes.indexOf(note), 1);
-          //             } else {
-          //                 Error();
-          //             }
-          //         },
-          //         error => console.log(error),
-          //         () => this.slimLoadingBarService.complete()
-          //     );
+          this.slimLoadingBarService.start();
+          this.dataService.delete(note)
+              .subscribe(
+                  response => this.notes.splice(this.notes.indexOf(note), 1),
+                  error => console.log(error),
+                  () => this.slimLoadingBarService.complete()
+              );
       }
   }
 

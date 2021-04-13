@@ -25,14 +25,13 @@ export class NotesService {
   public createOrUpdate(note: Note): Observable<Note> {
       return this.http.put<Note>(this.apiNotesUrl, JSON.stringify(note), { headers: this.headers })
         .pipe(
-          catchError(this.handleError('addNote', note))
+          catchError(this.handleError('createOrUpdateNote', note))
         );
   }
 
-  // public delete(note: Note): Observable<Boolean> {
-  //     return this.http.delete(this.apiNotesUrl + '/' + note.id, { headers: this.headers })
-  //         .map(response => response.json());
-  // }
+  public delete(note: Note) {
+      return this.http.delete(this.apiNotesUrl + '/' + note.id, { headers: this.headers });
+  }
 
     /**
    * Handle Http operation that failed.

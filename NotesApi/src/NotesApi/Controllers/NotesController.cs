@@ -50,7 +50,7 @@ namespace NotesApi.Controllers
             return model;
         }
 
-        [HttpDelete]
+        [HttpDelete, Route("{id}")]
         public async Task Delete(Guid id)
         {
             var model = await _dbContext.Notes.SingleAsync(x => x.Id == id);
