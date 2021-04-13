@@ -902,35 +902,6 @@ body.container {
 #note-list li {
   cursor: pointer;
 }
-.paper {
-  position: relative;
-  background: linear-gradient(#f0f0f0 0%,white 5%);
-  background: -webkit-linear-gradient(#f0f0f0 0%,white 5%);
-  background: -moz-linear-gradient(#f0f0f0 0%,white 5%);
-  background-size: 100% 30px;
-  -webkit-background-size: 100% 30px;
-  -moz-background-size: 100% 30px;
-  -ms-background-size: 100% 30px;
-}
-.paper:before {
-  content: '';
-  position: absolute;
-  width: 0px;
-  top: 0;
-  left: 39px;
-  bottom: 0;
-  border-left: 1px solid #F9D3D3;
-}
-.paper textarea {
-  border: none;
-  background-color: transparent;
-  height: 100%;
-  padding: 30px 0 0 55px;
-  line-height: 30px;
-  min-height: 210px;
-}
-
-
 
 .paper-textarea-wrapper {
   position: relative;
@@ -947,7 +918,7 @@ body.container {
 .paper-textarea {
   border: none;
   height: 100%;
-  padding: 30px 0 0 55px;
+  padding: 31px 0 0 55px;
   line-height: 30px;
   min-height: 210px;
   background: linear-gradient(#f0f0f0 0%,white 5%);
