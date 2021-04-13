@@ -22,17 +22,12 @@ export class NotesService {
         );
   }
 
-  public create(note: Note): Observable<Note> {
+  public createOrUpdate(note: Note): Observable<Note> {
       return this.http.put<Note>(this.apiNotesUrl, JSON.stringify(note), { headers: this.headers })
         .pipe(
           catchError(this.handleError('addNote', note))
         );
   }
-
-  // public update(note: Note, noteNewBody: String): Observable<Boolean> {
-  //     return this.http.put(this.apiNotesUrl + '/' + note.id, JSON.stringify(noteNewBody), { headers: this.headers })
-  //         .map(response => response.json());
-  // }
 
   // public delete(note: Note): Observable<Boolean> {
   //     return this.http.delete(this.apiNotesUrl + '/' + note.id, { headers: this.headers })

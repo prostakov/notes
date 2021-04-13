@@ -45,14 +45,14 @@ export class NotesComponent  implements OnInit {
   }
 
   public createAction() {
-      var noteText = this.currentNoteText;
+      this.slimLoadingBarService.start();
       var note = {
         id: UUID.UUID(),
         text: this.currentNoteText,
         createdAt: null,
         updatedAt: null
       };
-      this.dataService.create(note)
+      this.dataService.createOrUpdate(note)
            .subscribe(
                (createdNote: Note) => {
                    this.notes.push(createdNote);
@@ -64,25 +64,26 @@ export class NotesComponent  implements OnInit {
   }
 
   public updateAction() {
-      var noteId = this.currentNoteId;
-      // if (this._updatesInProgress.indexOf(noteId) > -1) return;
-      // this._updatesInProgress.push(noteId);
       this.slimLoadingBarService.start();
+      var currentNoteId = this.currentNoteId;
       var currentNoteText = this.currentNoteText;
 
-      // this._dataService.update(this.getNote(noteId), currentNoteText)
-      //     .subscribe(
-      //         (updateResult: Boolean) => {
-      //             if (updateResult) {
-      //                 this.getNote(noteId).body = currentNoteText.toString();
-      //                 this._updatesInProgress.splice(this._updatesInProgress.indexOf(noteId), 1);
-      //             } else {
-      //                 Error();
-      //             }
-      //         },
-      //         error => console.log(error),
-      //         () => this.slimLoadingBarService.complete()
-      //     );
+      var note = this.getNote(this.currentNoteId!);
+      var updateModel = {
+        id: note.id,
+        text: currentNoteText,
+        createdAt: null,
+        updatedAt: null
+      };
+
+      this.dataService.createOrUpdate(updateModel)
+          .subscribe(
+              (updatedNote: Note) => {
+                  this.getNote(currentNoteId!).text = updatedNote.text;
+              },
+              error => console.log(error),
+              () => this.slimLoadingBarService.complete()
+          );
   }
 
   public deleteAction(note: Note) {
