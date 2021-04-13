@@ -49,5 +49,13 @@ namespace NotesApi.Controllers
             
             return model;
         }
+
+        [HttpDelete]
+        public async Task Delete(Guid id)
+        {
+            var model = await _dbContext.Notes.SingleAsync(x => x.Id == id);
+            _dbContext.Remove(model);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
