@@ -1,0 +1,51 @@
+<body class="vbox">
+<ng2-slim-loading-bar [color]="'blue'"></ng2-slim-loading-bar>
+<!-- /.aside -->
+<section class="hbox stretch">
+    <!-- .aside -->
+    <aside class="aside-xl b-l b-r" id="note-list">
+        <section class="vbox flex">
+            <div class="padder">
+                <br/>
+                <div class="form-group">
+                    <button *ngIf="!modeEditing" [disabled]="isCreateDisabled()" (click)="createAction()" type="button" class="btn btn-primary">Create Note</button>
+                    <button *ngIf="modeEditing" [disabled]="isUpdateDisabled()" (click)="updateAction()" type="button" class="btn btn-primary">Update Note</button>
+                    <button *ngIf="modeEditing" (click)="discardChanges()" type="button" class="btn btn-primary">Discard Changes</button>
+                </div>
+                <!-- list of note items to be displayed -->
+                <ul id="note-items" class="list-group list-group-sp">
+                    <li class="list-group-item" *ngFor="let note of notes" [ngClass]="{active: currentNoteId === note.id}">
+                        <div class="view" (click)="edit(note);">
+                            <button class="destroy close hover-action" (click)="deleteAction(note); $event.stopPropagation()">×</button>
+                            <div class="note-name">
+                                <strong>
+                                    {{note.text | slice:0:20}}
+                                </strong>
+                            </div>
+                            <div class="note-desc">{{note.text | slice:21:50}}</div>
+                            <span class="text-xs text-muted">{{note.updatedAt}}</span>
+                        </div>
+                    </li>
+                </ul>
+                <!-- list of note items to be displayed -->
+            </div>
+        </section>
+    </aside>
+    <!-- /.aside -->
+    <aside id="note-detail">
+        <section class="vbox">
+            <section class="bg-light lter">
+                <section class="hbox stretch">
+                    <aside>
+                        <section class="vbox b-b">
+                            <section class="paper">
+                                <textarea type="text" class="form-control scrollable" placeholder="Type your note here" [(ngModel)]="currentNoteText"></textarea>
+                            </section>
+                        </section>
+                    </aside>
+                </section>
+            </section>
+        </section>
+    </aside>
+</section>
+</body>
