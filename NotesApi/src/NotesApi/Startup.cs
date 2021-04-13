@@ -23,13 +23,9 @@ namespace NotesApi
         {
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "NotesApi", Version = "v1"}); });
-
-            var connectionString = Configuration.GetConnectionString("Database");
-            if (string.IsNullOrWhiteSpace(connectionString))
-                throw new Exception("DatabaseConnection configuration is not set");
             
             services.AddDbContext<ApplicationDbContext>(options => 
-                options.UseSqlServer(connectionString, sqlOptions => sqlOptions.EnableRetryOnFailure()));
+                options.UseSqlServer(Configuration.GetConnectionString("Database"), sqlOptions => sqlOptions.EnableRetryOnFailure()));
             
             services
                 .AddHealthChecks()
@@ -49,6 +45,8 @@ namespace NotesApi
             }
 
             //app.UseHttpsRedirection();
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseRouting();
 
