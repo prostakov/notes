@@ -16,17 +16,18 @@ export class NotesService {
 
   public getNotes() : Observable<Note[]> {
       return this.http.get<Note[]>(this.apiNotesUrl)
-      .pipe(
-        tap(obj => console.log('fetched notes '+obj)),
-        catchError(this.handleError<Note[]>('getNotes', []))
-      );
+        .pipe(
+          tap(obj => console.log('fetched notes '+obj)),
+          catchError(this.handleError<Note[]>('getNotes', []))
+        );
   }
 
-  // public create(noteText: String): Observable<Note> {
-  //     return this.http
-  //       .post(this.apiNotesUrl, JSON.stringify(noteText), { headers: this.headers })
-  //       .pipe(map(response => response));
-  // }
+  public create(note: Note): Observable<Note> {
+      return this.http.put<Note>(this.apiNotesUrl, JSON.stringify(note), { headers: this.headers })
+        .pipe(
+          catchError(this.handleError('addNote', note))
+        );
+  }
 
   // public update(note: Note, noteNewBody: String): Observable<Boolean> {
   //     return this.http.put(this.apiNotesUrl + '/' + note.id, JSON.stringify(noteNewBody), { headers: this.headers })

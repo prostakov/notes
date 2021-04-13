@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar-observables';
 import { Note } from '../note';
 import { NotesService } from '../notes.service';
+import { UUID } from 'angular2-uuid';
 
 @Component({
   selector: 'app-notes',
@@ -45,16 +46,21 @@ export class NotesComponent  implements OnInit {
 
   public createAction() {
       var noteText = this.currentNoteText;
-      var note = { body: this.currentNoteText }
-      // this._dataService.addNote(note)
-      //     .subscribe(
-      //         (createdNote: Note) => {
-      //             this.notes.push(createdNote);
-      //             this.currentNoteText = "";
-      //         },
-      //         error => console.log(error),
-      //         () => this.slimLoadingBarService.complete()
-      //     );
+      var note = {
+        id: UUID.UUID(),
+        text: this.currentNoteText,
+        createdAt: null,
+        updatedAt: null
+      };
+      this.dataService.create(note)
+           .subscribe(
+               (createdNote: Note) => {
+                   this.notes.push(createdNote);
+                   this.currentNoteText = "";
+               },
+               error => console.log(error),
+               () => this.slimLoadingBarService.complete()
+           );
   }
 
   public updateAction() {
