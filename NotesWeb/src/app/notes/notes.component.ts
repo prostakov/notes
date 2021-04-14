@@ -113,4 +113,9 @@ export class NotesComponent  implements OnInit {
              this.currentNoteText === this.getNote(this.currentNoteId).text);// ||
              //this._updatesInProgress.indexOf(this.currentNoteId) > -1);
   }
+
+  public getTitle(text: string): string {
+    var lines = text.match(/[^\r\n]+/g);
+    return lines && lines.length > 1 ? lines![0] : text;
+  }
 }

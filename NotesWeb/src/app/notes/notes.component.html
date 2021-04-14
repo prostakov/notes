@@ -19,10 +19,10 @@
                             <button class="destroy close hover-action" (click)="deleteAction(note); $event.stopPropagation()">×</button>
                             <div class="note-name">
                                 <strong>
-                                    {{note.text | slice:0:20}}
+                                    {{getTitle(note.text)}}
                                 </strong>
                             </div>
-                            <div class="note-desc">{{note.text | slice:21:50}}</div>
+                            <div class="note-desc">{{note.text.substring(getTitle(note.text).length)}}</div>
                             <span class="text-xs text-muted">{{note.updatedAt}}</span>
                         </div>
                     </li>
