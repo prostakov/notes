@@ -17,13 +17,17 @@ export class NotesComponent  implements OnInit {
   public noteAction: string;
   private updatesInProgress: string[];
 
-  constructor(private dataService: NotesService, private slimLoadingBarService: SlimLoadingBarService) {
+  public apiUrl: string;
+
+  constructor(private dataService: NotesService,
+              private slimLoadingBarService: SlimLoadingBarService) {
       this.notes = [];
       this.modeEditing = false;
       this.currentNoteId = null;
       this.currentNoteText = "";
       this.noteAction = "Create Note";
       this.updatesInProgress = new Array<string>();
+      this.apiUrl = '';
   }
 
   ngOnInit() {

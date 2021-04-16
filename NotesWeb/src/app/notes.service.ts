@@ -5,17 +5,19 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Note } from './note';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class NotesService {
-
-  private apiNotesUrl = 'http://localhost:9410/notes';  // URL to web api
+  private apiUrl: string;
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.apiUrl = environment.API_URL;
+  }
 
   public getNotes() : Observable<Note[]> {
-      return this.http.get<Note[]>(this.apiNotesUrl)
+      return this.http.get<Note[]>(this.apiUrl)
         .pipe(
           tap(obj => console.log('fetched notes '+obj)),
           catchError(this.handleError<Note[]>('getNotes', []))
@@ -23,14 +25,14 @@ export class NotesService {
   }
 
   public createOrUpdate(note: Note): Observable<Note> {
-      return this.http.put<Note>(this.apiNotesUrl, JSON.stringify(note), { headers: this.headers })
+      return this.http.put<Note>(this.apiUrl, JSON.stringify(note), { headers: this.headers })
         .pipe(
           catchError(this.handleError('createOrUpdateNote', note))
         );
   }
 
   public delete(note: Note) {
-      return this.http.delete(this.apiNotesUrl + '/' + note.id, { headers: this.headers });
+      return this.http.delete(this.apiUrl + '/' + note.id, { headers: this.headers });
   }
 
     /**
