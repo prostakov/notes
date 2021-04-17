@@ -21,7 +21,7 @@ namespace NotesApi
             builder.Entity<NoteModel>().ToTable("Notes");
             builder.Entity<NoteModel>().HasKey(p => p.Id);
             builder.Entity<NoteModel>().Property(p => p.Text)
-                .HasMaxLength(100)
+                .HasMaxLength(5000)
                 .IsRequired();
         }
         
