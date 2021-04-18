@@ -1,6 +1,15 @@
 version: "3.9"
 
 services:
+  web:
+    image: notes-web
+    environment:
+      API_URL: "http://api:9410/notes"
+    ports:
+      - "9510:80"
+    restart: always
+    build:
+        context: NotesWeb
   api:
     image: notes-api
     environment:
@@ -8,8 +17,6 @@ services:
     ports:
       - "9410:80"
     restart: always
-    depends_on:
-      - db
     healthcheck:
       test: wget --no-verbose http://localhost:80/healthcheck || exit 1
       interval: 10s

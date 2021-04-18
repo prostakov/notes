@@ -6,10 +6,13 @@ docker-compose -f docker-compose.release.yml --env-file release.env up -d
 ## Build and run everything
 docker-compose up -d --build
 
-## Build only notes-api image:
+## Build notes-web image:
+docker build -t notes-web -f ./NotesWeb/Dockerfile ./NotesWeb/.
+
+## Build notes-api image:
 docker build -t notes-api -f ./NotesApi/Dockerfile ./NotesApi/.
 
-## Build only database image:
+## Build database image:
 docker build -t mssql -f ./database-setup/Dockerfile ./database-setup/
 
 ## Create container with database params:
