@@ -13,7 +13,7 @@ export class NotesService {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) {
-    this.apiUrl = environment.API_URL;
+    this.apiUrl = environment.API_URL + '/notes';
   }
 
   public getNotes() : Observable<Note[]> {
@@ -25,7 +25,7 @@ export class NotesService {
   }
 
   public createOrUpdate(note: Note): Observable<Note> {
-      return this.http.put<Note>(this.apiUrl, JSON.stringify(note), { headers: this.headers })
+      return this.http.put<Note>(this.apiUrl + '/update', JSON.stringify(note), { headers: this.headers })
         .pipe(
           catchError(this.handleError('createOrUpdateNote', note))
         );
