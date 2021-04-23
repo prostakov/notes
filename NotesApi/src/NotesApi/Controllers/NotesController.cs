@@ -24,7 +24,7 @@ namespace NotesApi.Controllers
             return models;
         }
 
-        [HttpPut]
+        [HttpPut, Route("update")]
         public async Task<NoteModel> CreateOrUpdate(UpdateNoteModel updateModel)
         {
             var model = await _dbContext.Notes.SingleOrDefaultAsync(x => x.Id == updateModel.Id);
