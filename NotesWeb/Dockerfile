@@ -5,7 +5,8 @@ WORKDIR /app
 COPY package.json /app
 RUN npm install
 COPY . /app
-RUN npm run build --prod
+RUN npm i -g @angular/cli
+RUN ng build --prod --configuration production
 
 # Stage 2
 FROM nginx:1.17.1-alpine
